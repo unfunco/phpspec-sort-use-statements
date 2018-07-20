@@ -20,10 +20,12 @@
 namespace Unfunco\PhpSpec\Extension;
 
 use PhpSpec\CodeGenerator\Generator\NewFileNotifyingGenerator;
+use PhpSpec\CodeGenerator\Generator\SpecificationGenerator as OriginalSpecificationGenerator;
 use PhpSpec\Extension;
 use PhpSpec\ServiceContainer;
 use PhpSpec\ServiceContainer\IndexedServiceContainer;
-use Unfunco\PhpSpec\Generator\Specification as SpecificationGenerator;
+use ReflectionClass;
+use Unfunco\PhpSpec\Generator\TypedSpecification as TypedSpecificationGenerator;
 
 class SortUseStatements implements Extension
 {
@@ -38,13 +40,27 @@ class SortUseStatements implements Extension
     public function load(ServiceContainer $container, array $params)
     {
         $container->define('code_generator.generators.specification', function (IndexedServiceContainer $c) {
-            /** @noinspection PhpParamsInspection */
-            $specificationGenerator = new SpecificationGenerator(
-                $c->get('console.io'),
-                $c->get('code_generator.templates'),
-                $c->get('util.filesystem'),
-                $c->get('process.executioncontext')
-            );
+            $originalSpecificationGenerator = new ReflectionClass(OriginalSpecificationGenerator::class);
+            $reflectedRenderTemplateMethod = $originalSpecificationGenerator->getMethod('renderTemplate');
+            [$_, $filePath] = $reflectedRenderTemplateMethod->getParameters();
+
+            if (null !== $filePath->getType()) {
+                /** @noinspection PhpParamsInspection */
+                $specificationGenerator = new TypedSpecificationGenerator(
+                    $c->get('console.io'),
+                    $c->get('code_generator.templates'),
+                    $c->get('util.filesystem'),
+                    $c->get('process.executioncontext')
+                );
+            } else {
+                /** @noinspection PhpParamsInspection */
+                $specificationGenerator = new \Unfunco\PhpSpec\Generator\UntypedSpecification(
+                    $c->get('console.io'),
+                    $c->get('code_generator.templates'),
+                    $c->get('util.filesystem'),
+                    $c->get('process.executioncontext')
+                );
+            }
 
             /** @noinspection PhpParamsInspection */
             return new NewFileNotifyingGenerator(

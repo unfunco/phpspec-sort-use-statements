@@ -23,7 +23,7 @@ use PhpSpec\CodeGenerator\Generator\PromptingGenerator;
 use PhpSpec\Locator\Resource;
 use PhpSpec\ObjectBehavior;
 
-class Specification extends PromptingGenerator
+class UntypedSpecification extends PromptingGenerator
 {
     /**
      * Returns a boolean indicative of the generation type being supported.
@@ -34,7 +34,7 @@ class Specification extends PromptingGenerator
      *
      * @return bool
      */
-    public function supports(Resource $resource, string $generation, array $data): bool
+    public function supports(Resource $resource, $generation, array $data): bool
     {
         return 'specification' === $generation;
     }
@@ -69,7 +69,7 @@ class Specification extends PromptingGenerator
      *
      * @return string
      */
-    protected function renderTemplate(Resource $resource, string $filePath): string
+    protected function renderTemplate(Resource $resource, $filePath): string
     {
         $values = [
             '%filepath%' => $filePath,
@@ -98,7 +98,7 @@ class Specification extends PromptingGenerator
      *
      * @return string
      */
-    protected function getGeneratedMessage(Resource $resource, string $filePath): string
+    protected function getGeneratedMessage(Resource $resource, $filePath): string
     {
         return sprintf(
             '<info>Specification for <value>%s</value> created in <value>%s</value>.</info>%s',

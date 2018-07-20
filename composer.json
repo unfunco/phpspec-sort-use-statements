@@ -17,6 +17,7 @@
             "Unfunco\\PhpSpec\\": "src/"
         }
     },
+    "minimum-stability": "alpha",
     "config": {
         "sort-packages": true
     },
