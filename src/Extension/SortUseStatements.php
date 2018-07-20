@@ -19,16 +19,22 @@
 
 namespace Unfunco\PhpSpec\Extension;
 
-use PhpSpec\CodeGenerator\Generator\NewFileNotifyingGenerator;
-use PhpSpec\CodeGenerator\Generator\SpecificationGenerator as OriginalSpecificationGenerator;
-use PhpSpec\Extension;
-use PhpSpec\ServiceContainer;
-use PhpSpec\ServiceContainer\IndexedServiceContainer;
-use ReflectionClass;
-use Unfunco\PhpSpec\Generator\TypedSpecification as TypedSpecificationGenerator;
-use Unfunco\PhpSpec\Generator\UntypedSpecification as UntypedSpecificationGenerator;
+use PhpSpec\{
+    CodeGenerator\Generator\NewFileNotifyingGenerator,
+    CodeGenerator\Generator\SpecificationGenerator as OriginalSpecificationGenerator,
+    Extension,
+    ServiceContainer,
+    ServiceContainer\IndexedServiceContainer
+};
 
-class SortUseStatements implements Extension
+use ReflectionClass;
+
+use Unfunco\PhpSpec\Generator\{
+    TypedSpecification as TypedSpecificationGenerator,
+    UntypedSpecification as UntypedSpecificationGenerator
+};
+
+final class SortUseStatements implements Extension
 {
     /**
      * Loads the override specification generator.
