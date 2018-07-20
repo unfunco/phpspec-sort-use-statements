@@ -23,7 +23,7 @@ use PhpSpec\CodeGenerator\Generator\PromptingGenerator;
 use PhpSpec\Locator\Resource;
 use PhpSpec\ObjectBehavior;
 
-class TypedSpecification extends PromptingGenerator
+final class TypedSpecification extends PromptingGenerator
 {
     /**
      * Returns a boolean indicative of the generation type being supported.

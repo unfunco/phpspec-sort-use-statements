@@ -26,6 +26,7 @@ use PhpSpec\ServiceContainer;
 use PhpSpec\ServiceContainer\IndexedServiceContainer;
 use ReflectionClass;
 use Unfunco\PhpSpec\Generator\TypedSpecification as TypedSpecificationGenerator;
+use Unfunco\PhpSpec\Generator\UntypedSpecification as UntypedSpecificationGenerator;
 
 class SortUseStatements implements Extension
 {
@@ -44,7 +45,7 @@ class SortUseStatements implements Extension
             $reflectedRenderTemplateMethod = $originalSpecificationGenerator->getMethod('renderTemplate');
             [$_, $filePath] = $reflectedRenderTemplateMethod->getParameters();
 
-            if (null !== $filePath->getType()) {
+            if ($filePath->getType()) {
                 /** @noinspection PhpParamsInspection */
                 $specificationGenerator = new TypedSpecificationGenerator(
                     $c->get('console.io'),
@@ -54,7 +55,7 @@ class SortUseStatements implements Extension
                 );
             } else {
                 /** @noinspection PhpParamsInspection */
-                $specificationGenerator = new \Unfunco\PhpSpec\Generator\UntypedSpecification(
+                $specificationGenerator = new UntypedSpecificationGenerator(
                     $c->get('console.io'),
                     $c->get('code_generator.templates'),
                     $c->get('util.filesystem'),
