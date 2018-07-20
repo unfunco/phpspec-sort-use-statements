@@ -1,0 +1,9 @@
+formatter.name: pretty
+
+suites:
+  phpspec_extension_sort_use_statements:
+    namespace: Unfunco\PhpSpec
+    psr4_prefix: Unfunco\PhpSpec
+
+extensions:
+  Unfunco\PhpSpec\Extension\SortUseStatements: ~

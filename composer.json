@@ -1,0 +1,27 @@
+{
+    "name": "unfunco/phpspec-sort-use-statements",
+    "description": "PhpSpec extension for sorting use statements in generated files.",
+    "license": "Apache-2.0",
+    "keywords": ["bdd", "phpspec", "tdd"],
+    "type": "library",
+    "authors": [
+        {
+            "name": "Daniel Morris",
+            "email": "daniel@honestempire.com",
+            "homepage": "https://unfun.co",
+            "role": "Software engineer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Unfunco\\PhpSpec\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php-64bit": ">=7.1",
+        "phpspec/phpspec": ">=4.0"
+    }
+}
